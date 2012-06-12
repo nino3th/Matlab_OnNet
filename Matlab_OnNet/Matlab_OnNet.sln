@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Matlab_OnNet", "Matlab_OnNet\Matlab_OnNet.csproj", "{83022A7F-BA3C-4DEC-BD09-7A4B323F255A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{83022A7F-BA3C-4DEC-BD09-7A4B323F255A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83022A7F-BA3C-4DEC-BD09-7A4B323F255A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83022A7F-BA3C-4DEC-BD09-7A4B323F255A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83022A7F-BA3C-4DEC-BD09-7A4B323F255A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
