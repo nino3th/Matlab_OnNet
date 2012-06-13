@@ -12,6 +12,8 @@
  * ----------------------------------------------------------------------------------------------------
  * 20120607  | NinoLiu  | 1.0.0  | Release first version for user terminal integration.
  * ----------------------------------------------------------------------------------------------------
+ * 20120613  | NinoLiu  | 1.1.0  | Add the ability to read statistical information on excel.
+ * ----------------------------------------------------------------------------------------------------
  * ======================================================================================================
  */
 using System;
@@ -55,6 +57,9 @@ namespace Matlab_OnNet
 
             int Jump_2_PlotRow = 0;
             string command = "_";
+            string trp_data_infor = "_";
+            string vertical_cable_loss = "_";
+            string horizontal_cable_loss = "_";
 
             //HDR = NO ; if user want to show the data of the first row
             //HDR = YES ; else
@@ -74,6 +79,12 @@ namespace Matlab_OnNet
                 Console.WriteLine(dt.Tables[0].Rows[i][0].ToString().Trim());
                 if (dt.Tables[0].Rows[i][0].ToString() == PlotBlock)
                     Jump_2_PlotRow = i; //To get the row position of this string keyin by user.
+                if (dt.Tables[0].Rows[i][0].ToString() == "TRP")
+                    trp_data_infor = dt.Tables[0].Rows[i][1].ToString();
+                if (dt.Tables[0].Rows[i][0].ToString() == "Vertical cable loss")
+                    vertical_cable_loss = dt.Tables[0].Rows[i][1].ToString();
+                if (dt.Tables[0].Rows[i][0].ToString() == "Horiziontal cable loss")
+                    horizontal_cable_loss = dt.Tables[0].Rows[i][1].ToString();
             }
 
             int temp = 0;
@@ -210,12 +221,12 @@ namespace Matlab_OnNet
 
             
             matlab.Execute("figure(" + Figure_acc + ")");
-            //matlab.Execute("surf(x,y,z)");
-            //matlab.Execute("hold on");
-            matlab.Execute("mesh(x,y,z)");
-            //matlab.Execute("hold on");
-            //matlab.Execute("plot3(x,y,z); xlabel('X-axis');ylabel('Y-axis');zlabel('Z-axis');");
-            //matlab.Execute("hold off");
+
+            matlab.Execute("surf(x,y,z),  xlabel('X-axis');ylabel('Y-axis');zlabel('Z-axis');");
+            matlab.Execute("title('SheetName: " + SheetName + "    Block: " + PlotBlock + "')");
+            matlab.Execute("legend('Vertical cable loss: " + vertical_cable_loss + " dBm')");
+            matlab.Execute("legend('TRP: " + trp_data_infor + " dBm')");
+            matlab.Execute("legend('Horizontal cable loss: " + horizontal_cable_loss + "dBm');");
             matlab.Execute("axis normal;");
             Figure_acc++;
 
