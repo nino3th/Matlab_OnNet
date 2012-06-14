@@ -14,6 +14,8 @@
  * ----------------------------------------------------------------------------------------------------
  * 20120613  | NinoLiu  | 1.1.0  | Add the ability to read statistical information on excel.
  * ----------------------------------------------------------------------------------------------------
+ * 20120614  | NinoLiu  | 1.2.0  | Add the subplot for user review and display special visual effects.
+ * ----------------------------------------------------------------------------------------------------
  * ======================================================================================================
  */
 using System;
@@ -38,7 +40,8 @@ namespace Matlab_OnNet
         private const double Pi = 3.1416;
         private string exlspec = string.Empty;
         public static int Figure_acc = 1;
-
+        public static int Sub_figure_num = 2;
+        public static int FrameSplitup = 0;
         MLAppClass matlab;
 
         public matlab_plot()
@@ -51,16 +54,16 @@ namespace Matlab_OnNet
             matlab.Visible = 0;
             matlab.Execute("clear");
         }
-        public void Data_plot(string FILE_NAME, string SheetName, string PlotBlock)
+        public void Data_plot(string FILE_NAME, string SheetName, string PlotBlock, int frame)
         {
             List<string> PolarBlockElements = new List<string>();
 
-            int Jump_2_PlotRow = 0;
+            int Jump_2_PlotRow = 0;            
             string command = "_";
             string trp_data_infor = "_";
             string vertical_cable_loss = "_";
             string horizontal_cable_loss = "_";
-
+            
             //HDR = NO ; if user want to show the data of the first row
             //HDR = YES ; else
             //System recognize number only in default, let every line become string format for reading so let IMEX as 1; 
@@ -218,18 +221,28 @@ namespace Matlab_OnNet
 
 
             }// end for loop
-
             
-            matlab.Execute("figure(" + Figure_acc + ")");
+            if (FrameSplitup==0) FrameSplitup = Convert.ToInt32(Math.Ceiling(Math.Sqrt(frame)));
 
+            matlab.Execute("figure(" + Figure_acc + ")");
             matlab.Execute("surf(x,y,z),  xlabel('X-axis');ylabel('Y-axis');zlabel('Z-axis');");
             matlab.Execute("title('SheetName: " + SheetName + "    Block: " + PlotBlock + "')");
             matlab.Execute("legend('Vertical cable loss: " + vertical_cable_loss + " dBm')");
-            matlab.Execute("legend('TRP: " + trp_data_infor + " dBm')");
-            matlab.Execute("legend('Horizontal cable loss: " + horizontal_cable_loss + "dBm');");
+            matlab.Execute("legend('Horizontal calble loss: "+ horizontal_cable_loss + " dBm')");
+            matlab.Execute("legend('TRP: "+trp_data_infor+" dBm')");
             matlab.Execute("axis normal;");
-            Figure_acc++;
 
+            
+            matlab.Execute("figure("+ Sub_figure_num +")");
+            matlab.Execute("hold on");
+            if (Figure_acc > 2) matlab.Execute("subplot(" + FrameSplitup + "," + FrameSplitup + "," + (Figure_acc - 1) + ")");
+            else  matlab.Execute("subplot(3,3," + Figure_acc + ")");
+            matlab.Execute("surf(x,y,z),  xlabel('X-axis');ylabel('Y-axis');zlabel('Z-axis');");
+            matlab.Execute("title('SheetName: " + SheetName + "Block: " + PlotBlock + "')");
+            matlab.Execute("hold off");
+            
+            Figure_acc++;            
+            if (Figure_acc == Sub_figure_num) Figure_acc++;
 
         }//end Data_plot
     }//end class
