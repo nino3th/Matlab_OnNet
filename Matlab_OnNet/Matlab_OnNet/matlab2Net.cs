@@ -16,6 +16,8 @@
  * ----------------------------------------------------------------------------------------------------
  * 20120614  | NinoLiu  | 1.2.0  | Add the subplot for user review and display special visual effects.
  * ----------------------------------------------------------------------------------------------------
+ * 20120619  | NinoLiu  | 1.3.0  | Create a GUI and embed 3D-figure and experiment result infor into this GUI.
+ * ----------------------------------------------------------------------------------------------------
  * ======================================================================================================
  */
 using System;
@@ -60,7 +62,8 @@ namespace Matlab_OnNet
 
             int Jump_2_PlotRow = 0;            
             string command = "_";
-            string trp_data_infor = "_";
+            string test_mode_data_infor = "_";
+            string test_item = "_";
             string vertical_cable_loss = "_";
             string horizontal_cable_loss = "_";
             
@@ -82,8 +85,11 @@ namespace Matlab_OnNet
                 Console.WriteLine(dt.Tables[0].Rows[i][0].ToString().Trim());
                 if (dt.Tables[0].Rows[i][0].ToString() == PlotBlock)
                     Jump_2_PlotRow = i; //To get the row position of this string keyin by user.
-                if (dt.Tables[0].Rows[i][0].ToString() == "TRP")
-                    trp_data_infor = dt.Tables[0].Rows[i][1].ToString();
+                if (dt.Tables[0].Rows[i][0].ToString() == "TRP" || dt.Tables[0].Rows[i][0].ToString() == "TIS")
+                {
+                    test_mode_data_infor = dt.Tables[0].Rows[i][1].ToString();
+                    test_item = dt.Tables[0].Rows[i][0].ToString();
+                }
                 if (dt.Tables[0].Rows[i][0].ToString() == "Vertical cable loss")
                     vertical_cable_loss = dt.Tables[0].Rows[i][1].ToString();
                 if (dt.Tables[0].Rows[i][0].ToString() == "Horiziontal cable loss")
@@ -223,13 +229,24 @@ namespace Matlab_OnNet
             }// end for loop
             
             if (FrameSplitup==0) FrameSplitup = Convert.ToInt32(Math.Ceiling(Math.Sqrt(frame)));
-
+            /*
             matlab.Execute("figure(" + Figure_acc + ")");
             matlab.Execute("surf(x,y,z),  xlabel('X-axis');ylabel('Y-axis');zlabel('Z-axis');");
             matlab.Execute("title('SheetName: " + SheetName + "    Block: " + PlotBlock + "')");
             matlab.Execute("legend('Vertical cable loss: " + vertical_cable_loss + " dBm')");
             matlab.Execute("legend('Horizontal calble loss: "+ horizontal_cable_loss + " dBm')");
-            matlab.Execute("legend('TRP: "+trp_data_infor+" dBm')");
+            matlab.Execute("legend('TRP: "+trp_data_infor+" dBm')");*/
+            matlab.Execute("figure('Menubar', 'none');");         
+            matlab.Execute("uicontrol('Style', 'edit', 'Position', [20 70 130 20],'String', 'Vertical Cable Loss');");
+            matlab.Execute("uicontrol('Style', 'edit', 'Position', [140 70 80 20], 'String', '" + vertical_cable_loss + "dBm');");
+            matlab.Execute("uicontrol('Style', 'edit', 'Position', [20 45 130 20],'String', 'Horizontal Cable Loss');");
+            matlab.Execute("uicontrol('Style', 'edit', 'Position', [140 45 80 20], 'String', '" + horizontal_cable_loss + "dBm');");
+            matlab.Execute("uicontrol('Style', 'edit', 'Position', [20 20 130 20],'String', '" + test_item + "');");
+            matlab.Execute("uicontrol('Style', 'edit', 'Position', [140 20 125 20], 'String', '" + test_mode_data_infor + "dBm');");
+            matlab.Execute("surfc(x,y,z); xlabel('X-axis');ylabel('Y-axis');zlabel('Z-axis');");
+            matlab.Execute("rotate3d on");
+
+            matlab.Execute("title('SheetName: " + SheetName + "    Block: " + PlotBlock + "')");
             matlab.Execute("axis normal;");
 
             
@@ -237,8 +254,8 @@ namespace Matlab_OnNet
             matlab.Execute("hold on");
             if (Figure_acc > 2) matlab.Execute("subplot(" + FrameSplitup + "," + FrameSplitup + "," + (Figure_acc - 1) + ")");
             else  matlab.Execute("subplot(3,3," + Figure_acc + ")");
-            matlab.Execute("surf(x,y,z),  xlabel('X-axis');ylabel('Y-axis');zlabel('Z-axis');");
-            matlab.Execute("title('SheetName: " + SheetName + "Block: " + PlotBlock + "')");
+            matlab.Execute("surf(x,y,z);rotate3d on");
+            matlab.Execute("title('figure("+Figure_acc+")')");
             matlab.Execute("hold off");
             
             Figure_acc++;            

@@ -6,3 +6,11 @@ C:\Users\nino\Documents\Visual Studio 2010\Projects\Matlab_OnNet\Matlab_OnNet\ob
 C:\Users\nino\Documents\Visual Studio 2010\Projects\Matlab_OnNet\Matlab_OnNet\obj\Debug\Matlab_OnNet.csproj.ResolveComReference.cache
 C:\Users\nino\Documents\Visual Studio 2010\Projects\Matlab_OnNet\Matlab_OnNet\obj\Debug\Matlab_OnNet.dll
 C:\Users\nino\Documents\Visual Studio 2010\Projects\Matlab_OnNet\Matlab_OnNet\obj\Debug\Matlab_OnNet.pdb
+D:\Project\Chamber\RD\Matlab_OnNet\Matlab_OnNet\Matlab_OnNet\bin\Debug\Matlab_OnNet.dll
+D:\Project\Chamber\RD\Matlab_OnNet\Matlab_OnNet\Matlab_OnNet\bin\Debug\Matlab_OnNet.pdb
+D:\Project\Chamber\RD\Matlab_OnNet\Matlab_OnNet\Matlab_OnNet\bin\Debug\Interop.MLApp.dll
+D:\Project\Chamber\RD\Matlab_OnNet\Matlab_OnNet\Matlab_OnNet\obj\Debug\ResolveAssemblyReference.cache
+D:\Project\Chamber\RD\Matlab_OnNet\Matlab_OnNet\Matlab_OnNet\obj\Debug\Interop.MLApp.dll
+D:\Project\Chamber\RD\Matlab_OnNet\Matlab_OnNet\Matlab_OnNet\obj\Debug\Matlab_OnNet.csproj.ResolveComReference.cache
+D:\Project\Chamber\RD\Matlab_OnNet\Matlab_OnNet\Matlab_OnNet\obj\Debug\Matlab_OnNet.dll
+D:\Project\Chamber\RD\Matlab_OnNet\Matlab_OnNet\Matlab_OnNet\obj\Debug\Matlab_OnNet.pdb
